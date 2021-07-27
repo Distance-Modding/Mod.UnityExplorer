@@ -1,0 +1,31 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<ModName>Distance Unity Explorer</ModName>
+	</PropertyGroup>
+	<Target Name="DownloadUnityExplorer" BeforeTargets="BeforeBuild">
+		<PropertyGroup>
+			<UE_Repository>sinai-dev/UnityExplorer</UE_Repository>
+			<UE_Artifact>UnityExplorer.Standalone.Mono</UE_Artifact>
+			<UE_DownloadURL>https://github.com/$(UE_Repository)/releases/latest/download/$(UE_Artifact).zip</UE_DownloadURL>
+			<UE_ArtifactPath>$(MSBuildThisFileDirectory)$(UE_Artifact)</UE_ArtifactPath>
+
+			<ContentDependencies>$(SolutionDir)$(ProjectName).Content\Mod\Dependencies</ContentDependencies>
+		</PropertyGroup>
+		<DownloadFile
+			SourceUrl="$(UE_DownloadURL)"
+			DestinationFolder="$(MSBuildThisFileDirectory)"
+			SkipUnchangedFiles="false"
+		/>
+		<Unzip
+			SourceFiles="$(UE_ArtifactPath).zip"
+			DestinationFolder="$(MSBuildThisFileDirectory)"
+			OverwriteReadOnlyFiles="true"
+			SkipUnchangedFiles="false"
+		/>
+		<Delete
+			Files="$(UE_ArtifactPath).zip"
+		/>
+		<MakeDir Directories="$(ContentDependencies)"/>
+		<Move SourceFiles="$(UE_ArtifactPath).dll" DestinationFolder="$(ContentDependencies)"/>
+	</Target>
+</Project>

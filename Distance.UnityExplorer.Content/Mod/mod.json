@@ -1,0 +1,14 @@
+﻿{
+	"FriendlyName": "Unity Explorer",
+	"Author": "UnityExplorer Gitbub:sinai-dev | Centrifuge port: Github:REHERC",
+	"Contact": "N/A",
+	"ModuleFileName": "Distance.UnityExplorer.dll",
+	"Dependencies": [
+		"UnityExplorer.Standalone.Mono.dll"
+	],
+	"RequiredGSLs": [
+		"com.github.reherc/Centrifuge.Distance"
+	],
+	"SkipLoad": false,
+	"Priority": 10
+}

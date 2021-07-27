@@ -339,3 +339,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Distance.UnityExplorer.Content/Mod/Dependencies/UnityExplorer.Standalone.Mono.dll

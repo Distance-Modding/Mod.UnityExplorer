@@ -7,11 +7,12 @@
     <ProjectGuid>{7BCB2908-B003-45D9-BE68-50CBA5217603}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mod.Template</RootNamespace>
-    <AssemblyName>Mod.Template</AssemblyName>
+    <RootNamespace>Distance.UnityExplorer</RootNamespace>
+    <AssemblyName>Distance.UnityExplorer</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -83,13 +84,16 @@
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Centrifuge.GameSupport.Distance.3.0.7868.41513\lib\net35\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="UnityExplorer.Standalone.Mono">
+      <HintPath>..\Distance.UnityExplorer.Content\Mod\Dependencies\UnityExplorer.Standalone.Mono.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Mod.Template.targets" />
+    <None Include="Distance.UnityExplorer.targets" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
