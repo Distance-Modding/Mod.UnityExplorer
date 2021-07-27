@@ -4,3 +4,6 @@
 [submodule "Tool.ProjectTargets"]
 	path = Tool.ProjectTargets
 	url = https://github.com/Distance-Modding/Tool.ProjectTargets
+[submodule "UnityExplorer"]
+	path = UnityExplorer
+	url = https://github.com/sinai-dev/UnityExplorer
