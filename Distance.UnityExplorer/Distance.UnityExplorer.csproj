@@ -89,6 +89,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decorators\ColorDecorator.cs" />
+    <Compile Include="Decorators\DecoratorColorator.cs" />
+    <Compile Include="Decorators\LabelDecorator.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

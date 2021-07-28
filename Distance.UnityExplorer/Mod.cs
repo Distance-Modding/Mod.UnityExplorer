@@ -1,18 +1,21 @@
-﻿using Reactor.API.Attributes;
+﻿using Distance.UnityExplorer.Decorators;
+using Reactor.API.Attributes;
 using Reactor.API.Interfaces.Systems;
 using Reactor.API.Logging;
+using Reactor.API.Logging.Base;
 using Reactor.API.Logging.Decorators;
+using Reactor.API.Storage;
 using System;
+using System.IO;
+using System.Reflection;
 using UnityEngine;
 using UnityExplorer;
 
-namespace Distance.ModTemplate
+namespace Distance.UnityExplorer
 {
 	[ModEntryPoint("com.github.sinai-dev/UnityExplorer")]
 	public sealed class Mod : MonoBehaviour
 	{
-		public const string LOG_DECORATOR = "UnityExplorer";
-
 		public static Mod Instance { get; private set; }
 
 		public IManager Manager { get; private set; }
@@ -26,14 +29,39 @@ namespace Distance.ModTemplate
 			DontDestroyOnLoad(this);
 
 			Instance = this;
-
 			Manager = manager;
+			Logger = CreateLog();
 
-			Logger = LogManager.GetForCurrentAssembly();
-			Logger.DecorateWith<MessageOutputDecorator>("LOG_DECORATOR");
+			SetUEWorkingDirectory();
 
-			UnityExplorer = ExplorerStandalone.CreateInstance();
-			ExplorerStandalone.OnLog += OnUnityExplorerLog;
+			UnityExplorer = ExplorerStandalone.CreateInstance(OnUnityExplorerLog);
+		}
+
+		private void SetUEWorkingDirectory()
+		{
+			DirectoryInfo directory = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory;
+
+			// Set UnityExplorer root path
+			// private static string ExplorerStandalone.s_explorerFolder
+			FieldInfo s_explorerFolder = HarmonyLib.AccessTools.Field(typeof(ExplorerStandalone), "s_explorerFolder");
+			s_explorerFolder.SetValue(null, directory.FullName);
+		}
+
+		private Log CreateLog()
+		{
+			Log log = LogManager.GetForCurrentAssembly();
+
+			log.WithOutputTemplate("[{Time} {LogLevel}] [{LogName}] {Message}");
+
+			// Add a prefix to the UnityExplorer log lines in the console so they can be found more easily
+			Decorator dateTime = new DateTimeDecorator();
+			Decorator coloredDateTime = new DecoratorColorator(dateTime, 111, 193, 209);
+
+			Decorator logName = new LabelDecorator("Unity Explorer", 111, 193, 209);
+			log.DecorateWith(logName, "LogName");
+			log.DecorateWith(coloredDateTime, "Time");
+
+			return log;
 		}
 
 		private void OnUnityExplorerLog(string message, LogType type)
