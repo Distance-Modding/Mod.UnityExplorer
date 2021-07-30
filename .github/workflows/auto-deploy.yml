@@ -30,10 +30,6 @@ jobs:
         run: nuget restore $env:SOLUTION
       - name: Build Solution
         run: msbuild $env:SOLUTION -m
-      - name: Check Current File Tree
-        shell: pwsh
-        run: | 
-          tree "${{ github.workspace }}" /f /a
       - name: Format Artifact List
         id: artifacts
         uses: frabert/replace-string-action@v2.0
