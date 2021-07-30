@@ -9,7 +9,7 @@
 			<UE_DownloadURL>https://github.com/$(UE_Repository)/releases/latest/download/$(UE_Artifact).zip</UE_DownloadURL>
 			<UE_ArtifactPath>$(MSBuildThisFileDirectory)$(UE_Artifact)</UE_ArtifactPath>
 
-			<ContentDependencies>$(SolutionDir)$(ProjectName).Content\Mod\Dependencies</ContentDependencies>
+			<ContentDependencies>$(SolutionDir)$(ProjectName).Content\Mod\Dependencies\</ContentDependencies>
 		</PropertyGroup>
 		<DownloadFile
 			SourceUrl="$(UE_DownloadURL)"
@@ -28,11 +28,11 @@
 		<MakeDir Directories="$(ContentDependencies)"/>
 		<Move SourceFiles="$(UE_ArtifactPath).dll" DestinationFolder="$(ContentDependencies)"/>
 		
-		<!-- "Recreate" the @ModContent item group as it may be missing the File downloaded above -->
+		<!-- Update the @ModContent item group as it may be missing the File downloaded above -->
 		<!-- The file may be missing from the group when it is downloaded for the first time -->
 		<!-- This happens because the original item group is evaluated before the target is run -->
 		<ItemGroup>
-			<ModContent Include="$(ProjectDir)\..\$(ProjectName).Content\Mod\**\*.*"/>
+			<ModContent Include="$(ContentDependencies)$(UE_Artifact).dll"/>
 		</ItemGroup>
 	</Target>
 </Project>
