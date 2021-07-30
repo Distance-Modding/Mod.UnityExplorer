@@ -33,7 +33,7 @@ jobs:
       - name: Check Current File Tree
         shell: pwsh
         run: | 
-          tree "${{ github.workspace }}"
+          tree "${{ github.workspace }}" /f /a
       - name: Format Artifact List
         id: artifacts
         uses: frabert/replace-string-action@v2.0
