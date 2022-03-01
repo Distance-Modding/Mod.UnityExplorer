@@ -6,7 +6,8 @@
 		<PropertyGroup>
 			<UE_Repository>sinai-dev/UnityExplorer</UE_Repository>
 			<UE_Artifact>UnityExplorer.Standalone.Mono</UE_Artifact>
-			<UE_DownloadURL>https://github.com/$(UE_Repository)/releases/latest/download/$(UE_Artifact).zip</UE_DownloadURL>
+			<UE_Tag>4.2.0</UE_Tag>  <!-- Lastest working version, higher versions will break ! -->
+			<UE_DownloadURL>https://github.com/$(UE_Repository)/releases/download/$(UE_Tag)/$(UE_Artifact).zip</UE_DownloadURL>
 			<UE_ArtifactPath>$(MSBuildThisFileDirectory)$(UE_Artifact)</UE_ArtifactPath>
 
 			<ContentDependencies>$(SolutionDir)$(ProjectName).Content\Mod\Dependencies\</ContentDependencies>
@@ -35,4 +36,18 @@
 			<ModContent Include="$(ContentDependencies)$(UE_Artifact).dll"/>
 		</ItemGroup>
 	</Target>
+	<Target Name="CreateBuild" AfterTargets="AfterBuild">
+		<MakeDir Directories="$(ModFolder)"/>
+		<MakeDir Directories="$(GSLFolder)"/>
+		<Copy SourceFiles="@(ModContent)" DestinationFiles="@(ModContent->'$(ModFolder)\%(RecursiveDir)%(Filename)%(Extension)')"/>
+		<Copy SourceFiles="$(OutDir)Centrifuge.Distance.dll" DestinationFolder="$(GSLFolder)"/>
+		<Copy SourceFiles="$(OutDir)$(ProjectName).dll" DestinationFolder="$(ModFolder)"/>
+	</Target>
+	<Target Name="CreateZip" AfterTargets="AfterBuild" DependsOnTargets="CreateBuild">
+		<ZipDirectory SourceDirectory="$(BuildDestination)" DestinationFile="$(BuildDestination).zip" Overwrite="true"/>
+	</Target>
+	<!--<Target Name="CopyModDependencies" AfterTargets="CreateBuild" BeforeTargets="CreateZip">
+		<Copy SourceFiles="$(OutDir)UniverseLib.Mono.dll" DestinationFolder="$(ModFolder)\Dependencies"/>
+		<Copy SourceFiles="$(OutDir)0Harmony.dll" DestinationFolder="$(ModFolder)\Dependencies"/>
+	</Target>-->
 </Project>

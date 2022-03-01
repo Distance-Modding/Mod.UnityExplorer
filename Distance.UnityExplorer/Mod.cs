@@ -4,7 +4,6 @@ using Reactor.API.Interfaces.Systems;
 using Reactor.API.Logging;
 using Reactor.API.Logging.Base;
 using Reactor.API.Logging.Decorators;
-using Reactor.API.Storage;
 using System;
 using System.IO;
 using System.Reflection;

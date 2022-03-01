@@ -14,6 +14,7 @@
     <Deterministic>true</Deterministic>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,6 +88,9 @@
     <Reference Include="UnityExplorer.Standalone.Mono">
       <HintPath>..\Distance.UnityExplorer.Content\Mod\Dependencies\UnityExplorer.Standalone.Mono.dll</HintPath>
     </Reference>
+    <Reference Include="UniverseLib.Mono, Version=1.2.7.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\UniverseLib.1.2.8\lib\net35\UniverseLib.Mono.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Decorators\ColorDecorator.cs" />
@@ -98,6 +102,9 @@
   <ItemGroup>
     <None Include="Distance.UnityExplorer.targets" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
